@@ -20,7 +20,7 @@ app.add_middleware(
 
 # Load the trained model pipeline
 try:
-    model = joblib.load(r"C:\Users\sahil\OneDrive\Naresh IT Class\ML_End_To_End_Projects\Internship Projects\AI Lead Scoring Dashboard Prototype\Backend\model.pkl")
+    model = joblib.load("Backend\model.pkl")
 except FileNotFoundError:
     raise RuntimeError("Model file not found. Please run train_model.py first.")
 
