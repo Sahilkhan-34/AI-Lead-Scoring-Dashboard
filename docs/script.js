@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessage = document.getElementById('error-message');
     
     // IMPORTANT: Change this to your deployed backend URL
-    const API_URL = 'http://127.0.0.1:8000';
+    const API_URL = 'https://ai-lead-scoring-dashboard-4.onrender.com';
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
