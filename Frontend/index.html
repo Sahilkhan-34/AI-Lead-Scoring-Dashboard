@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lead Scoring Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Lead Scoring Dashboard</h1>
+            <p>Enter lead details to get an intent score.</p>
+        </header>
+
+        <main>
+            <section class="form-section">
+                <h2>Submit a New Lead</h2>
+                <form id="lead-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="credit-score">Credit Score (300-850)</label>
+                            <input type="number" id="credit-score" min="300" max="850" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="income">Annual Income (INR)</label>
+                            <input type="number" id="income" min="100000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age-group">Age Group</label>
+                            <select id="age-group" required>
+                                <option value="18-25">18-25</option>
+                                <option value="26-35">26-35</option>
+                                <option value="36-50">36-50</option>
+                                <option value="51+">51+</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="family-background">Family Background</label>
+                            <select id="family-background" required>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Married with Kids">Married with Kids</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label for="comments">Comments</label>
+                            <textarea id="comments" rows="3" placeholder="e.g., 'Looking for a quote urgently...'"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <div class="consent-group">
+                            <input type="checkbox" id="consent" required>
+                            <label for="consent">I consent to data processing.</label>
+                        </div>
+                        <button type="submit" id="submit-btn">Get Score</button>
+                    </div>
+                </form>
+                 <div id="error-message" class="error"></div>
+            </section>
+
+            <section class="table-section">
+                <h2>Scored Leads</h2>
+                <table id="leads-table">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Comments</th>
+                            <th>Initial Score</th>
+                            <th>Reranked Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leads-table-body">
+                        <!-- Rows will be added dynamically -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
