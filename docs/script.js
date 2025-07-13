@@ -1,16 +1,19 @@
-// frontend/script.js
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('lead-form');
     const tableBody = document.getElementById('leads-table-body');
     const submitBtn = document.getElementById('submit-btn');
     const errorMessage = document.getElementById('error-message');
-    
+
     // IMPORTANT: Change this to your deployed backend URL
     const API_URL = 'https://ai-lead-scoring-dashboard-4.onrender.com';
 
+    // Load saved leads from localStorage
+    let savedLeads = JSON.parse(localStorage.getItem('scoredLeads')) || [];
+    savedLeads.forEach(addLeadToTable);
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         // Disable button to prevent multiple submissions
         submitBtn.disabled = true;
         submitBtn.textContent = 'Scoring...';
@@ -24,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             Income: parseInt(document.getElementById('income').value, 10),
             Comments: document.getElementById('comments').value
         };
-        
+
         try {
             const response = await fetch(`${API_URL}/score`, {
                 method: 'POST',
@@ -41,13 +44,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await response.json();
             addLeadToTable(result);
+
+            // Save new lead to localStorage
+            savedLeads.unshift(result);  // Add to beginning
+            localStorage.setItem('scoredLeads', JSON.stringify(savedLeads));
+
             form.reset();
 
         } catch (error) {
             errorMessage.textContent = `Error: ${error.message}`;
             console.error('Failed to score lead:', error);
         } finally {
-            // Re-enable button
             submitBtn.disabled = false;
             submitBtn.textContent = 'Get Score';
         }
@@ -63,6 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <td>${lead.RerankedScore}</td>
         `;
 
-        tableBody.prepend(row); // Add new leads to the top
+        tableBody.prepend(row);
     }
 });
